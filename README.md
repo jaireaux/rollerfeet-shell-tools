@@ -15,6 +15,7 @@ aliases and search helpers.
 - `t` — a short alias for the included `tree` function
 - `tree [directory] [depth]` — a directory tree built with `find`, `sort`, and
   `awk`; the defaults are the current directory and three levels
+- `tree --help` or `tree -h` — built-in usage instructions and examples
 - `h [text]` — case-insensitive shell-history search (or all history with no text)
 - `f [find arguments]` — `find` with routine “Permission denied” messages hidden
 
@@ -48,6 +49,7 @@ source ./localterm.sh
 ll
 t
 tree public_html 2
+tree --help
 h ssh
 f . -name '*.php'
 ```
@@ -67,6 +69,10 @@ The replacement intentionally stays simple and portable: it passes the chosen
 directory and maximum depth to `find`, sorts the paths for stable output, and
 uses `awk` to render familiar `|` and `+--` branches. It does not require the
 standalone `tree` program.
+
+The function lives in `functions/tree.sh`. It is a sourced Bash function—not a
+standalone executable—and `localterm.sh` loads it automatically using a path
+relative to its own location. Normally, you only need to source `localterm.sh`.
 
 ## Notes
 
