@@ -3,6 +3,7 @@
 # Handy interactive-shell defaults.
 alias ls='ls -GF -w 0'
 alias ll='ls -GalhU'
+alias l='printf "${GREEN}=%.0s" $(eval echo "{1..$COLUMNS}"); printf "${NOCOLOR}\n"'
 alias t='tree'
 
 # Load shell functions relative to this file, regardless of the current directory.
@@ -17,7 +18,9 @@ h() {
     fi
 }
 
-# Run find while hiding routine permission-denied messages.
+# Search from the filesystem root by name, hiding routine IONOS errors.
+# Quote wildcard patterns when calling it, for example: f '*.php'
 f() {
-    find "$@" 2> >(grep -v -i 'permission denied' >&2)
+    find / -name "$1" 2>&1 \
+        | grep -vE 'Operation not permitted|Permission denied|No such file or directory|Not a directory'
 }
