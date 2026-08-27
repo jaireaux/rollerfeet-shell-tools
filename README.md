@@ -12,12 +12,13 @@ aliases and search helpers.
 
 - `ls` — colorized, classified, full-width directory listings
 - `ll` — a detailed listing that includes hidden files
+- `l` — a colored horizontal separator across the terminal
 - `t` — a short alias for the included `tree` function
-- `tree [directory] [depth]` — a directory tree built with `find`, `sort`, and
+- `tree [directory] [depth]` — a directory-only tree built with `find`, `sort`, and
   `awk`; the defaults are the current directory and three levels
 - `tree --help` or `tree -h` — built-in usage instructions and examples
 - `h [text]` — case-insensitive shell-history search (or all history with no text)
-- `f [find arguments]` — `find` with routine “Permission denied” messages hidden
+- `f 'pattern'` — search from `/` by name while hiding routine IONOS errors
 
 ## Install
 
@@ -47,11 +48,12 @@ source ./localterm.sh
 
 ```bash
 ll
+l
 t
 tree public_html 2
 tree --help
 h ssh
-f . -name '*.php'
+f '*.php'
 ```
 
 Example tree output:
@@ -66,9 +68,12 @@ public_html
 ```
 
 The replacement intentionally stays simple and portable: it passes the chosen
-directory and maximum depth to `find`, sorts the paths for stable output, and
-uses `awk` to render familiar `|` and `+--` branches. It does not require the
-standalone `tree` program.
+directory and maximum depth to `find`, selects directories with `-type d`, sorts
+the paths for stable output, and uses `awk` to render familiar `|` and `+--`
+branches. It does not require the standalone `tree` program.
+
+Quote wildcard patterns passed to `f`, such as `f '*.php'`. The quotes prevent
+the shell from expanding the pattern before `find` receives it.
 
 The function lives in `functions/tree.sh`. It is a sourced Bash function—not a
 standalone executable—and `localterm.sh` loads it automatically using a path
