@@ -8,7 +8,7 @@ Usage:
   tree --help
   tree -h
 
-Display a directory tree using standard shell utilities.
+Display a directory-only tree using standard shell utilities.
 
 Arguments:
   DIRECTORY  Directory to display. Defaults to the current directory (.).
@@ -19,7 +19,7 @@ Examples:
       Show the current directory to a depth of 3.
 
   tree . 1
-      Show only the current directory's immediate contents.
+      Show only the current directory's immediate subdirectories.
 
   tree . 2
       Show two levels beneath the current directory.
@@ -50,7 +50,7 @@ EOF
     fi
 
     printf '%s\n' "$directory"
-    find "$directory" -mindepth 1 -maxdepth "$depth" -print 2>/dev/null \
+    find "$directory" -mindepth 1 -maxdepth "$depth" -type d -print 2>/dev/null \
         | LC_ALL=C sort \
         | awk -v root="$directory" '
             {
