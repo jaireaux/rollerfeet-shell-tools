@@ -84,9 +84,22 @@ link. Normally, you only need to source `localterm.sh`.
 
 ## IONOS installation and updates
 
-The IONOS login directory used for this project is
-`/kunden/homepages/XX/dYYYYYYYYY/htdocs`. Keep the Git checkout one level above
-the web root and place a symbolic link to `localterm.sh` in the login directory:
+Your directory will be in the form of
+`/kunden/homepages/XX/dYYYYYYYYY/htdocs`. To find your actual login directory,
+connect to your IONOS shell and run:
+
+```bash
+cd "$HOME"
+pwd
+```
+
+Replace `XX` and `dYYYYYYYYY` in every path below with the values shown by
+`pwd`. If your directory layout differs, adjust the paths to match your actual
+web root and checkout location. The paths below are placeholders, not literal
+commands to copy unchanged.
+
+Keep the Git checkout one level above the web root and place a symbolic link
+to `localterm.sh` in the login directory:
 
 ```bash
 git clone https://github.com/jaireaux/rollerfeet-shell-tools.git \
